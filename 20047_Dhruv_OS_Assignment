@@ -1,0 +1,350 @@
+author : Dhruv Pratap Singh
+PRN : 230950120047
+
+--------------------------------------------------------------------------------
+
+question 1:  Redirect both the output and error of a command to a file
+
+>touch file1
+#output of ls command will be inside file1.
+>ls > file1
+
+#to show output add 2>&1 at end
+>lse > err 2>&1
+#lse is wrong command and error will be Redirected to err file
+
+----------------------------------------------------------------------------------
+
+question 2 :  Include your current directory in the PATH environment variable using export command
+
+>export PATH=$PATH:/home/dac1/dhruv
+
+----------------------------------------------------------------------------------
+
+question 3 :  Create 2 files “file1” and “file2”. Create a directory “dir”. Copy the files to the directory and then delete the files. Do so using shell script.
+
+>#!/bin/bash
+
+#creating two files
+>touch file1 file2
+
+#creating directory
+>mkdir dir
+
+#copying files to directory
+>cp file1 file2 dir
+
+#removing both files.
+>rm file1 file2
+
+#granting permission to script
+>chmod u+x ques3.sh
+
+#executing sciprt
+>./ques3.sh
+
+------------------------------------------------------------------------------------------
+
+question 4 :  Write a script to see current date, time, username and current directory.
+
+>#!/bin/bash
+  
+>datetime=$(date "+%Y-%m-%d %H:%M:%S")
+>username=$(whoami)
+>dir=$(pwd)
+
+>echo "Current date and time is : $datetime"
+>echo "Username : $username"
+>echo "Current directory : $dir"
+
+#granting permission to script
+>chmod u+x ques4.sh
+
+#executing script
+>./ques4.sh
+
+
+-------------------------------------------------------------------------------------------
+
+question 5 : Write shell script that will add two numbers, which are supplied as command line argument.
+
+>#!/bin/bash
+>num1=$1
+>num2=$2
+
+>sum=$((num1+ num2))
+
+>echo "Sum of the numbers $num1 and $num2 is : $sum "
+
+>chmod u+x ques5.sh
+
+>./ques5.sh
+
+----------------------------------------------------------------------------------------------
+
+question 6 : Write a script to determine whether given file exists or not, the file name is supplied as command line argument, also check for sufficient number of command line arguments.
+
+>#!/bin/bash
+
+# Check if the number of command-line arguments is correct
+>if [ "$#" -ne 1 ]; then
+>    echo "Enter filename in command line"
+>    exit 1
+>fi
+  
+>file=$1
+
+>if [ -f $file  ]; then
+>      echo "file exist"
+>else
+>  echo "file do not exist"
+>fi
+
+
+---------------------------------------------------------------------------------------------------
+
+question 7 : Write a script to print nos. as 5, 4, 3, 2, 1 using while loop.
+
+#!/bin/bash
+  
+x=5
+
+while [ $x -ge 1 ]
+do
+echo $x
+((x--))
+done
+
+--------------------------------------------------------------------------------------------
+
+question 8 : Take a number as command line and using until loop print value from 1 to till number.
+
+#!/bin/bash
+  
+if [ "$#" -eq 0 ]; then
+    echo "Enter command line argument"
+    exit 1
+fi
+
+num=$1
+counter=1
+
+until [ $counter -gt $num ]
+do
+echo $counter
+((counter++))
+done
+
+
+---------------------------------------------------------------------------------------------------
+
+question 9 :  Write a script, using case statement to perform basic math operation as follows
+    + addition
+    - subtraction
+    x multiplication
+    / division
+NOTE- two numbers will be given as command line arguments.
+
+
+#!/bin/bash
+  
+if [ $# -ne 2 ]; then
+       echo "enter two arguments in cmd line "
+        exit 1
+fi
+
+num1=$1
+num2=$2
+
+echo "Enter Operation to be held"
+read x
+case $x in
+        +) echo "sum is $((num1 + num2))";;
+
+        -) echo "diffrence is $((num1 - num2))";;
+
+        \*) echo "Product is $((num1 * num2))";;
+
+        /) echo "Division is $((num1 / num2))";;
+
+        *) echo "Enter valid operation";;
+
+esac
+
+
+------------------------------------------------------------------------------------------
+
+question 10 : Write a script to find out biggest number from three given numbers. Numbers are supplied as command line arguments. 
+Print error if sufficient arguments are not supplied.
+
+#!/bin/bash
+  
+if [ $# -ne 3 ]; then
+        echo "Enter 3 arguments"
+        exit 1
+fi
+
+if [ $1 -gt $2 ] && [ $1 -gt $3 ]; then
+        echo "$1 is the greatest"
+elif [ $2 -gt $1 ] && [ $2 -gt $3 ]; then
+        echo "$2 is the greatest"
+else
+        echo "$3 is the greatest"
+fi
+
+-------------------------------------------------------------------------------------------------------
+
+question 11 : Write a program using while loop to print
+
+0
+1 0
+2 1 0
+3 2 1 0
+4 3 2 1 0
+5 4 3 2 1 0
+6 5 4 3 2 1 0
+7 6 5 4 3 2 1 0
+8 7 6 5 4 3 2 1 0
+9 8 7 6 5 4 3 2 1 0
+
+
+#!/bin/bash
+  
+row=0
+
+while [ $row -lt 10 ] 
+do
+    col=$row
+
+    while [ $col -ge 0 ] 
+    do
+        echo -n "$col "
+        ((col--))
+    done
+
+    echo ""
+    ((row++))
+done
+
+-----------------------------------------------------------------------------------
+
+question 12 : Write a program using for loop to print
+
+*
+*
+* *
+* * *
+* * * *
+* * * *
+* * *
+* *
+*
+*
+
+#!/bin/bash
+  
+for ((i=0; i<4; i=$i+1 )); do
+        for((j=0; j<=i; j=$j+1 )); do
+                echo -n  "*"
+        done
+        echo " " 
+done
+for ((i=3; i>=0; i=$i-1 )); do
+        for((j=0; j<=i; j=$j+1 )); do
+                echo -n  "*"
+        done
+        echo " "
+done
+
+---------------------------------------------------------------------------
+
+question 13 : Write a script to print given number in reverse order, for eg. If number is 123, it must print as 321.
+
+#!/bin/bash
+  
+echo "Enter a Number : "
+read x
+ans=0
+while [[ $x -ge 1 ]]
+do
+        r=$x%10
+        x=$x/10
+        ans=$((ans*10+r))
+done
+echo "reverse is : $ans"
+
+--------------------------------------------------------------------------------------
+
+question 14 : Write script to print the sum of all the digits of a given number. For eg. If the number is 123, sum of all the digits will be 1+2+3 = 6.
+
+#!/bin/bash
+  
+echo "Enter a number: "
+read x
+ans=0
+
+while [[ $x -ge 1 ]]
+do
+        r=$x%10
+        x=$x/10
+        ans=$((ans + r))
+done
+echo "the sum of digits is :  $ans"
+
+--------------------------------------------------------------------------------------------
+
+question 15 :  Create a file named file.txt and write a shell script to check is a file is readable , writable and executable.
+
+#!/bin/bash
+  
+file=$1
+
+if [ -r  "$file" ]; then
+        echo "File is Readable"
+else
+        echo "file is not readable"
+fi
+
+if [ -w "$file" ]; then
+        echo "File is Writable"
+else
+        echo "file is not writable"
+fi
+
+if [ -x "$file" ]; then
+        echo "File is Executable"
+else
+        echo "File is not excutable"
+fi
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+       
+
+
+
+
+
+
+
+
+
